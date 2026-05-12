@@ -10,14 +10,20 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     """Main application settings."""
-    
+    # ... твій існуючий код (database_url, app_name тощо) ...
+
+    # JWT Settings
+    secret_key: str = "super-secret-key-for-lab5" # Зміни на довгий рядок
+    algorithm: str = "HS256"
+    access_token_expire_minutes: int = 30
+    cookie_name: str = "access_token"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore",
     )
-
     # Database
     database_url: str = "postgresql+asyncpg://user:password@localhost:5432/fastapi_db"
     db_echo: bool = False
