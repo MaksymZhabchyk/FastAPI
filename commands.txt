@@ -1,0 +1,6 @@
+1. git merge prod
+2. # Редагування docker-compose.yml: додано volumes та прапор --reload
+3. docker-compose up -d --build
+4. docker ps  # Перевірка статусу контейнерів (docker_test4)
+5. docker-compose exec web pip list  # Перевірка бібліотек (docker_test5)
+6. docker-compose down

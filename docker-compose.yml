@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fastapi_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    # --- ОСЬ ТУТ ПОЧИНАЮТЬСЯ ЗМІНИ ДЛЯ DEV ---
+    volumes:
+      - .:/code  # mount the current directory to /code in the container
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/fastapi_db
+    depends_on:
+      - db
+    # autoreload --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  postgres_data:

@@ -4,7 +4,7 @@ app = FastAPI()
 
 @app.get("/")
 def main():
-    return {"Hello": "World"}
+    return {"Hello": "Fast_API"}
 
 if __name__ == "__main__":
     main()
