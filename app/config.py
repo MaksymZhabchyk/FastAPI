@@ -13,7 +13,6 @@ class Settings(BaseSettings):
     # ... твій існуючий код (database_url, app_name тощо) ...
 
     # JWT Settings
-    secret_key: str = "super-secret-key-for-lab5" # Зміни на довгий рядок
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     cookie_name: str = "access_token"
@@ -25,7 +24,6 @@ class Settings(BaseSettings):
         extra="ignore",
     )
     # Database
-    database_url: str = "postgresql+asyncpg://user:password@localhost:5432/fastapi_db"
     db_echo: bool = False
     
     # FastAPI
