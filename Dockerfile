@@ -2,13 +2,14 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Встановлюємо залежності
-RUN pip install fastapi uvicorn email-validator
+RUN pip install poetry
 
-# Копіюємо ВСЕ з папки app у корінь робочої папки контейнера
+COPY pyproject.toml poetry.lock ./
+
+RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
+
 COPY ./app/ /app/
 
 EXPOSE 8000
 
-# Запускаємо з явним вказанням робочої директорії
 CMD ["python", "main.py"]
