@@ -1,18 +1,11 @@
-"""
-Application configuration using Pydantic Settings.
-Reads parameters from .env file.
-"""
-
-from pydantic_settings import BaseSettings
-from pydantic_settings import SettingsConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
-
 
 class Settings(BaseSettings):
     """Main application settings."""
-    # ... твій існуючий код (database_url, app_name тощо) ...
 
     # JWT Settings
+    secret_key: str
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     cookie_name: str = "access_token"
@@ -23,19 +16,21 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra="ignore",
     )
+
     # Database
+    database_url: str
     db_echo: bool = False
-    
+
     # FastAPI
     app_name: str = "FastAPI Lab 4"
     app_version: str = "1.0.0"
-    
+
     # API
     api_prefix: str = "/api/v1"
-    
+
     # Session
     session_expire_minutes: int = 30
-    
+
 @lru_cache()
 def get_settings() -> Settings:
     """Single instance cache for settings."""
